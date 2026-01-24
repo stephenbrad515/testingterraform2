@@ -1,3 +1,4 @@
+/*
 provider "google" {
   project = var.project_id
   region  = var.region
@@ -36,9 +37,11 @@ resource "google_compute_instance" "ubuntu_vm" {
     network = google_compute_network.vpc_network.name
     access_config {}
   }
-/*
+
   metadata = {
     ssh-keys = "${var.ssh_user}:${file(var.public_key_path)}"
   }
-  */
+  
 }
+
+*/
