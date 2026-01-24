@@ -40,11 +40,11 @@ resource "google_compute_instance" "ubuntu_vm" {
 
   # Reference the external shell script
   metadata_startup_script = file("${path.module}/install_gcsfuse.sh")
-/*
+
   metadata = {
     ssh-keys = "${var.ssh_user}:${file(var.public_key_path)}"
   }
-  */
+  
 }
 
-*/*/
+*/
