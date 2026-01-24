@@ -20,6 +20,9 @@ sudo apt-get install -y gcsfuse
 mkdir -p /mnt/gcs-bucket
 chmod 777 /mnt/gcs-bucket
 
+#This allows users other than the one who mounted to access the filesystem
+sed -i '/#user_allow_other/s/^[[:blank:]]*#//' /etc/fuse.conf
+
 # 5. Optional: Mount the bucket (Replace 'your-bucket-name' or use a variable)
 # Note: Mounting at boot usually requires a specific service account.
 gcsfuse thisisalongcrazyname9 /mnt/gcs-bucket
