@@ -20,8 +20,8 @@ sudo apt-get update
 sudo apt-get install -y gcsfuse
 
 # 4. Create a directory to mount the bucket
-mkdir -p /mnt/gcs-bucket
-chmod 777 /mnt/gcs-bucket
+sudo mkdir -p /mnt/gcs-bucket
+sudo chmod 777 /mnt/gcs-bucket
 
 #This allows users other than the one who mounted to access the filesystem
 sed -i '/#user_allow_other/s/^[[:blank:]]*#//' /etc/fuse.conf
@@ -30,7 +30,7 @@ sed -i '/#user_allow_other/s/^[[:blank:]]*#//' /etc/fuse.conf
 # Note: Mounting at boot usually requires a specific service account.
 gcsfuse thisisalongcrazyname9 /mnt/gcs-bucket
 
-#Create A systemd service to mount the bucket with gcsfuse
+#Create A systemd service to mount the bucket with gcsfuse /etc/systemd/system/gcsfuse-my-bucket.service
 echo "[Unit]
 Description=Mount GCS bucket my-bucket
 After=network-online.target local-fs.target
@@ -49,9 +49,7 @@ RestartSec=3
 TimeoutStartSec=30
 
 [Install]
-WantedBy=multi-user.target
-
-#/etc/systemd/system/gcsfuse-my-bucket.service" | tee /etc/systemd/system/gcsfuse-my-bucket.service
+WantedBy=multi-user.target" | sudo tee /etc/systemd/system/gcsfuse-my-bucket.service
 
 # Reload configurations
 sudo systemctl daemon-reload
