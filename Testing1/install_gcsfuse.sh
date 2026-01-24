@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-gcloud secrets versions access 1 --secret=first
+#gcloud secrets versions access 1 --secret=first
 
 
 # Update and install dependencies
