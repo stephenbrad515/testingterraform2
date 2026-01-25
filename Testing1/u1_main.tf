@@ -34,7 +34,7 @@ resource "google_compute_instance" "ubuntu_vm" {
 
   network_interface {
     network = google_compute_network.vpc_network.name
-    #access_config {}
+    access_config {}
   }
 
   # Reference the external shell script
@@ -48,3 +48,15 @@ resource "google_compute_instance" "ubuntu_vm" {
   }
 }
 
+  #Outputs VM name and IP on terminal when done creating
+  output "instance_name" {
+      value = google_compute_instance.ubuntu_vm.name
+  }
+
+  output "public_ip" {
+      value = google_compute_instance.ubuntu_vm.network_interface[0].access_config[0].nat_ip
+  }
+
+  output "private_ip" {
+      value = google_compute_instance.ubuntu_vm.network_interface.0.network_ip
+}
