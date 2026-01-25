@@ -34,15 +34,17 @@ resource "google_compute_instance" "ubuntu_vm" {
 
   network_interface {
     network = google_compute_network.vpc_network.name
-    access_config {}
+    #access_config {}
   }
 
   # Reference the external shell script
   metadata_startup_script = file("${path.module}/install_gcsfuse.sh")
-/*
-  metadata = {
-    ssh-keys = "${var.ssh_user}:${file(var.public_key_path)}"
+
+
+  service_account {
+      # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+      email  = "42488166641-compute@developer.gserviceaccount.com"
+      scopes = ["cloud-platform"]
   }
-*/
 }
 
