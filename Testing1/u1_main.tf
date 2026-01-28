@@ -34,12 +34,15 @@ resource "google_compute_instance" "ubuntu_vm" {
 
   network_interface {
     network = google_compute_network.vpc_network.name
-    access_config {}
+    #access_config {}
   }
 
   # Reference the external shell script
   metadata_startup_script = file("${path.module}/install_gcsfuse.sh")
 
+metadata = {
+  block-project-ssh-keys = true
+}
 
   service_account {
       # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
@@ -47,7 +50,7 @@ resource "google_compute_instance" "ubuntu_vm" {
       scopes = ["cloud-platform"]
   }
 }
-
+/*
   #Outputs VM name and IP on terminal when done creating
   output "instance_name" {
       value = google_compute_instance.ubuntu_vm.name
@@ -60,3 +63,4 @@ resource "google_compute_instance" "ubuntu_vm" {
   output "private_ip" {
       value = google_compute_instance.ubuntu_vm.network_interface.0.network_ip
 }
+*/
