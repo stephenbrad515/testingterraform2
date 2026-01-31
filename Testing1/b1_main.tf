@@ -24,6 +24,8 @@ resource "google_storage_bucket" "static_site" {
   }
 }
 
+
+
 output "bucket_url" {
   value       = google_storage_bucket.static_site.url
   description = "The URI of the created bucket"
