@@ -4,7 +4,13 @@ resource "google_compute_network" "vpc_network" {
   auto_create_subnetworks = true
 }
 
-
+# 2. Create a Private Subnet
+resource "google_compute_subnetwork" "private_subnet" {
+  name          = "private-subnet"
+  ip_cidr_range = "10.2.1.0/24"
+  region        = "us-east4"
+  network       = google_compute_network.vpc_network.id
+}
 
 # 3. Create a Cloud Router
 # The NAT gateway needs a router to manage the control plane.

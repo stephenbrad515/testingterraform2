@@ -1,6 +1,6 @@
 
-resource "google_compute_instance" "ubuntu_vm" {
-  name         = "ubuntu-server"
+resource "google_compute_instance" "ubuntu_desktop_vm" {
+  name         = "ubuntu-desktop"
   machine_type = var.machine_type
   zone         = var.zone
 
@@ -15,8 +15,8 @@ resource "google_compute_instance" "ubuntu_vm" {
     #access_config {}
   }
 
-  # Reference the external shell script
-  metadata_startup_script = file("${path.module}/install_gcsfuse.sh")
+# Reference the external shell script
+  metadata_startup_script = file("${path.module}/install_xfce.sh")
 
 metadata = {
   block-project-ssh-keys = true
@@ -41,4 +41,3 @@ metadata = {
 //  output "private_ip" {
 //      value = google_compute_instance.ubuntu_vm.network_interface.0.network_ip
 //}
-

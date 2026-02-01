@@ -22,6 +22,12 @@ variable "machine_type" {
   default     = "e2-medium"
 }
 
+#Reference the Machine Image
+//data "google_compute_machine_image" "source_image" {
+//  name = "ubuntu-xfce"
+//}
+
+
 variable "ubuntu_image" {
   description = "The OS image to use"
   type        = string
