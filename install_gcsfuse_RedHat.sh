@@ -10,20 +10,28 @@ if [ -f "$FLAG_FILE" ]; then
   exit 0
 fi
 
-# Update and install dependencies
-sudo apt-get update
-sudo apt-get install -y curl lsb-release
 
-# 1. Add the gcsfuse distribution URI as a package source
-export GCSFUSE_REPO=gcsfuse-`lsb_release -c -s`
-echo "deb https://packages.cloud.google.com/apt $GCSFUSE_REPO main" | sudo tee /etc/apt/sources.list.d/gcsfuse.list
+# This is where the magic happens
+  metadata_startup_script = <<-EOT
+    #!/bin/bash
+    # 1. Update the system
+    dnf update -y
 
-# 2. Import the Google Cloud public key
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    # 2. Add the gcsfuse repository
+    tee /etc/yum.repos.d/gcsfuse.repo <<EOF
+[gcsfuse]
+name=gcsfuse (packages.cloud.google.com)
+baseurl=https://packages.cloud.google.com/yum/repos/gcsfuse-el9-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=0
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+       https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
 
-# 3. Update and install gcsfuse
-sudo apt-get update
-sudo apt-get install -y gcsfuse
+    # 3. Install gcsfuse
+    dnf install -y gcsfuse
+  EOT
 
 # 4. Create a directory to mount the bucket
 sudo mkdir -p /mnt/gcs-bucket

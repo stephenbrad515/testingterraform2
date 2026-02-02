@@ -42,6 +42,7 @@ https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt install --assume-yes --fix-broken ./google-chrome-stable_current_amd64.deb
 
 
+
 # Create the flag file to mark the script as executed
 sudo touch "$FLAG_FILE"
 echo "One-time setup complete and flag file created."

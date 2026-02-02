@@ -27,7 +27,7 @@ resource "google_compute_instance" "instance-20260202-011910" {
   name         = "instance-20260202-011910"
 
     metadata = {
-    startup-script = "metadata_startup_script = file("${path.module}/install_gcsfuse.sh")"
+    startup-script = "metadata_startup_script = file("${path.module}/install_gcsfuse_RedHat.sh")"
   }
 
   network_interface {
