@@ -24,11 +24,11 @@ resource "google_compute_instance" "instance-20260202-011910" {
   }
 
   machine_type = "e2-medium"
-  name         = "instance-20260202-011910"
+  name         = "rocky01"
 
-    metadata = {
-    startup-script = "metadata_startup_script = file("${path.module}/install_gcsfuse_RedHat.sh")"
-  }
+    # Reference the external shell script
+    metadata_startup_script = file("${path.module}/install_gcsfuse_RedHat.sh")
+
 
   network_interface {
     access_config {
